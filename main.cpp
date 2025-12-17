@@ -39,6 +39,13 @@ int main()
         case 5:
             wm.find_Emp();
             break;
+        case 6:
+            wm.sort_Emp();
+            break;
+        case 7:
+            wm.clean_File();
+            break;
+
         default:
             system("cls");
             break;

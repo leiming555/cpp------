@@ -68,7 +68,7 @@ void WorkerManager::show_Menu()
     cout<<"5.find"<<endl;
     cout<<"6.pai"<<endl;
     cout<<"7.clean"<<endl;
-    cout<<"design by leiming"<<endl;
+    cout<<"design by leiming 2025.12.17"<<endl;
     cout<<endl;
 
 }
@@ -81,7 +81,7 @@ void WorkerManager::ExitSystem()
 
  void WorkerManager::Add_Emp()
     {
-        cout<<"cin the number you want add"<<endl;
+        cout<<"cin the number of person you want add"<<endl;
         int addNum=0;
         cin>>addNum;
 
@@ -105,11 +105,11 @@ void WorkerManager::ExitSystem()
                 string name;
                 int dId;
 
-                cout<<" put "<<i+1<<"id"<<endl;
+                cout<<" put "<<i+1<<" id"<<endl;
                 cin>>id;
-                cout<<" put "<<i+1<<"name"<<endl;
+                cout<<" put "<<i+1<<" name"<<endl;
                 cin>>name;
-                cout<<" put "<<i+1<<"did"<<endl;
+                cout<<" put "<<i+1<<" did"<<endl;
                 cin>>dId;
 
                 Worker *worker=NULL;
@@ -225,7 +225,37 @@ int WorkerManager::IsExist(int id)
     }
     return index;
 }
+void WorkerManager::clean_File()
+{ 
+    cout<<"clean?"<<endl;
+    cout<<"1.yes"<<endl;
+    cout<<"2.no"<<endl;
+    int select=0;
+    cin>>select;
+    if(select==1)
+    {
+        
+        ofstream ofs(FILENAME,ios::trunc);
+        ofs.close();
+        if(this->m_EmpArray!=NULL)
+        {
+            for(int i=0;i<this->m_EmpNum;i++)
+            {
+                delete this->m_EmpArray[i];
+                this->m_EmpArray[i]=NULL;
+            }
+            delete []this->m_EmpArray;
+            this->m_EmpArray=NULL;
+            this->m_EmpNum=0;
+            this->m_FileIsEmpty=true;
+        }
+        cout<<"clean ok"<<endl;
 
+    }
+    system("pause");
+    system("cls");
+
+}
 void WorkerManager::delete_Emp()
 {
     if(this->m_FileIsEmpty)
@@ -255,12 +285,85 @@ void WorkerManager::delete_Emp()
     }
 }
 
+void WorkerManager::sort_Emp()
+{
+    if(this->m_FileIsEmpty)
+    {
+        cout<<"FileIsEmpty"<<endl;
+    }
+    else
+    {
+        for(int i=0;i<this->m_EmpNum-1;i++)
+        {
+            for(int j=0;j<this->m_EmpNum-i-1;j++)
+            {
+                if(this->m_EmpArray[j]->m_Id>this->m_EmpArray[j+1]->m_Id)
+                {
+                    Worker *temp=this->m_EmpArray[j];
+                    this->m_EmpArray[j]=this->m_EmpArray[j+1];
+                    this->m_EmpArray[j+1]=temp;
+                }
+            }
+        }
+        cout<<"sucess"<<endl;
+        this->show_Emp();
+    }
+    system("pause");
+    system("cls");
+}
 void WorkerManager::modify_Emp()
 {
+    if(this->m_FileIsEmpty)
+    {
+        cout<<"FileIsEmpty"<<endl;
+    }
+    else
+    {
+        cout<<"cin id "<<endl;
+        int id;
+        cin>>id;
+        int index=this->IsExist(id);
+        if(index!=-1)
+        {
+            delete this->m_EmpArray[index];
+
+            int newId;
+            string newName;
+            int dId;
+
+            cout<<" cin new id "<<endl;
+            cin>>newId;
+            cout<<" cin new name "<<endl;
+            cin>>newName;
+            cout<<" cin new did "<<endl;
+            cin>>dId;
+
+            Worker *worker=NULL;
+            if(dId==1)
+            {
+                worker=new Employee(newId,newName,dId);
+            }
+            else if(dId==2)
+            {
+                worker=new Manager(newId,newName,dId);
+            }
+            else if(dId==3)
+            {
+                worker=new Boss(newId,newName,dId);
+            }
+            this->m_EmpArray[index]=worker;
+            cout<<"ok"<<endl;
+            this->save();
+        }
+        else
+        {
+            cout<<"error"<<endl;
+        }
+    }
+    system("pause");
+    system("cls");
     
   
-    
-    
 }
 
 
@@ -274,8 +377,8 @@ void WorkerManager::find_Emp()
     else
     {
 
-        cout << "1." << endl;
-        cout << "2." << endl;
+        cout << "1.find by id" << endl;
+        cout << "2.find by name" << endl;
         cout << "please select your way" << endl;   
         
         int select = 0;
@@ -284,25 +387,24 @@ void WorkerManager::find_Emp()
         {
         case 1:
             {
-                cout << "  " << endl;
                 int id;
+                cout<<"cin id"  <<endl;
                 cin >> id;
                 int index = this->IsExist(id);
                 if (index != -1)
                 {
-                    // cout << "���" << this->m_EmpArray[i]->m_Id 
-                    //      << " ����" << this->m_EmpArray[i]->m_Name 
-                    //      << " ���ű��" << this->m_EmpArray[i]->m_DeptId << endl;
+                    cout<<"sucess"<<endl;
+                    this->m_EmpArray[index]->showInfo();
                 }
                 else
                 {
-                    cout <<   " " << endl;
+                    cout << "no this man " << endl;
                 }
                 break;
             }
         case 2:
             {
-                cout << "  " << endl;
+                cout << " cin the name " << endl;
                 string name;
                 cin >> name;
                 bool flag = false;
@@ -310,18 +412,20 @@ void WorkerManager::find_Emp()
                 {
                     if (this->m_EmpArray[i]->m_Name == name)
                     {
-                        cout << "  " << this->m_EmpArray[i]->m_Id 
-                             << "  " << this->m_EmpArray[i]->m_Name 
-                             << "  " << this->m_EmpArray[i]->m_DeptId << endl;
+                        cout<<"sucess"<<endl;
+                        this->m_EmpArray[i]->showInfo();
                         flag = true;
                     }
                 }
                 if (!flag)
                 {
-                    cout << "  " << endl;
+                    cout << " do not find the name " << endl;
                 }
                 break;
             }
+        default:
+            cout << "error" << endl;
+            break;
         } // end of switch
     } // end of else
 }  // end of function

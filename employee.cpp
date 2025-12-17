@@ -7,9 +7,9 @@
     }
     void Employee::showInfo()
     {
-      cout<<"ְid"<<this->m_Id;
-      cout<<"\tְname"<<this->m_Name;
-      cout<<"\tDeptName"<<this->getDeptName()<<endl;
+      cout<<"ְid  "<<this->m_Id;
+      cout<<"\tְnamerr   "<<this->m_Name;
+      cout<<"\tDeptName  "<<this->getDeptName()<<endl;
       cout<<"\t"<<endl;
     }
     string Employee::getDeptName()

@@ -14,8 +14,6 @@ class WorkerManager
 public:
     WorkerManager();
     void show_Menu();
-
-
     void ExitSystem();
     int m_EmpNum;
     Worker **m_EmpArray;
@@ -29,6 +27,8 @@ public:
     void modify_Emp();
     int IsExist(int id);
     void find_Emp();
+    void sort_Emp();
+    void clean_File();
 
     ~WorkerManager();
 };
