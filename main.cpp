@@ -8,19 +8,6 @@ using namespace std;
 
 int main()
 {
-    Worker *worker=NULL;
-    worker =new Employee(1,"张三",1);
-    worker->showInfo();
-    delete worker;
-
-    worker =new Manager(2,"张三",2);
-    worker->showInfo();
-    delete worker;
-
-    worker =new Boss(2,"adwd",2);
-    worker->showInfo();
-    delete worker;
-
     WorkerManager wm;
     int choice=0;
     while (true)

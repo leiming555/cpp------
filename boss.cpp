@@ -7,12 +7,12 @@
     }
     void Boss::showInfo()
     {
-      cout<<"职工编号："<<this->m_Id;
-      cout<<"\t职工姓名："<<this->m_Name;
-      cout<<"\t岗位："<<this->getDeptName()<<endl;
-      cout<<"\t岗位职责：管理公司所有事物"<<endl;
+      cout<<"职id"<<this->m_Id;
+      cout<<"\t职name"<<this->m_Name;
+      cout<<"\tDeptName"<<this->getDeptName()<<endl;
+      cout<<"\t"<<endl;
     }
     string Boss::getDeptName()
     {
-      return string("老板");
+      return string("Boss");
     }

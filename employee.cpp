@@ -7,12 +7,12 @@
     }
     void Employee::showInfo()
     {
-      cout<<"职工编号："<<this->m_Id;
-      cout<<"\t职工姓名："<<this->m_Name;
-      cout<<"\t岗位："<<this->getDeptName()<<endl;
-      cout<<"\t岗位职责：完成经理交给的任务"<<endl;
+      cout<<"职id"<<this->m_Id;
+      cout<<"\t职name"<<this->m_Name;
+      cout<<"\tDeptName"<<this->getDeptName()<<endl;
+      cout<<"\t"<<endl;
     }
     string Employee::getDeptName()
     {
-      return string("员工");
+      return string("Employee");
     }

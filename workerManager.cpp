@@ -25,7 +25,7 @@ WorkerManager::WorkerManager()
 
     if(!ifs.is_open())
     {
-        cout<<"ÎÄ¼þ²»´æÔÚ"<<endl;
+        cout<<"FileIsEmpty"<<endl;
         this->m_FileIsEmpty=true;
         this->m_EmpNum=0;
         this->m_EmpArray=NULL;
@@ -38,7 +38,7 @@ WorkerManager::WorkerManager()
     if(ifs.eof())
     {
         this->m_FileIsEmpty=true;
-         cout<<"ÎÄ¼þÎª¿Õ"<<endl;
+         cout<<"FileIsEmpty"<<endl;
         this->m_FileIsEmpty=true;
         this->m_EmpNum=0;
         this->m_EmpArray=NULL;
@@ -50,7 +50,7 @@ WorkerManager::WorkerManager()
         this->m_FileIsEmpty=false;
     }
     int num=this->get_EmpNum();
-    cout<<"ÎÄ¼þÖÐ¹²ÓÐ"<<num<<"ÃûÖ°¹¤"<<endl;
+    cout<<"  "<<num<<" "<<endl;
     this->m_EmpNum=num;
 
     this->m_EmpArray=new Worker*[this->m_EmpNum];
@@ -68,7 +68,7 @@ void WorkerManager::show_Menu()
     cout<<"5.find"<<endl;
     cout<<"6.pai"<<endl;
     cout<<"7.clean"<<endl;
-    cout<<"design by À×Ãù"<<endl;
+    cout<<"design by leiming"<<endl;
     cout<<endl;
 
 }
@@ -81,7 +81,7 @@ void WorkerManager::ExitSystem()
 
  void WorkerManager::Add_Emp()
     {
-        cout<<"ÊäÈëÌí¼ÓÖ°¹¤ÊýÁ¿"<<endl;
+        cout<<"cin the number you want add"<<endl;
         int addNum=0;
         cin>>addNum;
 
@@ -105,11 +105,11 @@ void WorkerManager::ExitSystem()
                 string name;
                 int dId;
 
-                cout<<"ÇëÊäÈëµÚ"<<i+1<<"¸öÐÂÖ°¹¤±àºÅ"<<endl;
+                cout<<" put "<<i+1<<"id"<<endl;
                 cin>>id;
-                cout<<"ÇëÊäÈëµÚ"<<i+1<<"¸öÐÂÖ°¹¤ÐÕÃû"<<endl;
+                cout<<" put "<<i+1<<"name"<<endl;
                 cin>>name;
-                cout<<"ÇëÊäÈëµÚ"<<i+1<<"¸öÐÂÖ°¹¤²¿ÃÅ±àºÅ"<<endl;
+                cout<<" put "<<i+1<<"did"<<endl;
                 cin>>dId;
 
                 Worker *worker=NULL;
@@ -127,7 +127,7 @@ void WorkerManager::ExitSystem()
                 }
                 else
                 {
-                    cout<<"ÊäÈëÓÐÎó£¬Ìí¼ÓÊ§°Ü"<<endl;
+                    cout<<"error"<<endl;
                     break;
                 }
                 newSpace[this->m_EmpNum+i]=worker;
@@ -137,7 +137,7 @@ void WorkerManager::ExitSystem()
             this->m_EmpArray=newSpace;
             this->m_EmpNum+=addNum;
             this->m_FileIsEmpty=false;
-            cout<<"³É¹¦Ìí¼Ó"<<addNum<<"ÃûÐÂÖ°¹¤"<<endl;
+            cout<<"has add"<<addNum<<" "<<endl;
             this->save();
         }
         else{
@@ -163,7 +163,6 @@ void WorkerManager::save()
 
 void WorkerManager::init_Emp()
 {
-    cout<<"³õÊ¼»¯Ö°¹¤"<<endl;
     if(!this->m_FileIsEmpty)
     {
         ifstream ifs;
@@ -199,7 +198,7 @@ void WorkerManager::show_Emp()
 {
     if(this->m_FileIsEmpty)
     {
-        cout<<"ÎÄ¼þ²»´æÔÚ»òÎª¿Õ"<<endl;
+        cout<<"FileIsEmpty"<<endl;
     }
     else
     {
@@ -231,11 +230,11 @@ void WorkerManager::delete_Emp()
 {
     if(this->m_FileIsEmpty)
     {
-        cout<<"ÎÄ¼þ²»´æÔÚ»òÎª¿Õ"<<endl;
+        cout<<"FileIsEmpty"<<endl;
     }
     else
     {
-        cout<<"ÇëÊäÈëÒªÉ¾³ýµÄÖ°¹¤±àºÅ"<<endl;
+        cout<<"cin id "<<endl;
         int id;
         cin>>id;
         int index=this->IsExist(id);
@@ -247,78 +246,19 @@ void WorkerManager::delete_Emp()
             }
             this->m_EmpNum--;
             this->save();
-            cout<<"É¾³ý³É¹¦"<<endl;
+            cout<<"ok"<<endl;
         }
         else
         {
-            cout<<"É¾³ýÊ§°Ü£¬Î´ÕÒµ½¸ÃÖ°¹¤"<<endl;
+            cout<<"error"<<endl;
         }
     }
 }
 
 void WorkerManager::modify_Emp()
 {
-    if(this->m_FileIsEmpty)
-    {
-        cout<<"ÎÄ¼þ²»´æÔÚ»òÎª¿Õ"<<endl;
-    }
-    else
-    {
-        cout<<"ÇëÊäÈëÒªÐÞ¸ÄµÄÖ°¹¤±àºÅ"<<endl;
-        int id;
-        cin>>id;
-        int index=this->IsExist(id);
-        if(index!=-1)
-        {
-            delete this->m_EmpArray[index];
-
-            int newId=0;
-            string newName="";
-            int newdId=0;
-            cout<<"±àºÅ"<<this->m_EmpArray[index]->m_Id<<"ÐÕÃû"<<this->m_EmpArray[index]->m_Name<<"²¿ÃÅ±àºÅ"<<this->m_EmpArray[index]->m_DeptId<<endl;
-            cout<<"ÇëÊäÈëÐÂµÄÖ°¹¤±àºÅ"<<endl;
-            cin>>newId;
-            cout<<"ÇëÊäÈëÐÂµÄÖ°¹¤ÐÕÃû"<<endl;
-            cin>>newName;
-            
-            cout<<"1.Ô±¹¤"<<endl;
-            cout<<"2.¾­Àí"<<endl;
-            cout<<"3.ÀÏ°å"<<endl;
-            cout<<"ÇëÊäÈëÐÂµÄÖ°¹¤²¿ÃÅ±àºÅ"<<endl;
-            int dSelect=0;
-            cin>>dSelect;
-            Worker *Worker=NULL;
-            switch(dSelect)
-            {
-            case 1:
-                Worker = new Employee(newId,newName,newdId);
-                break;
-            case 2:
-                Worker = new Manager(newId,newName,newdId);
-                break;
-            case 3:
-                Worker = new Boss(newId,newName,newdId);
-                break;
-            default:
-                cout<<"ÊäÈë´íÎó"<<endl;
-                break;
-            }
-            this->m_EmpArray[index]=Worker;
-            cout<<"ÐÞ¸Ä³É¹¦"<<endl;
-            this->save();
-
-
-
-
-        }
-        else
-        {
-            cout<<"ÐÞ¸ÄÊ§°Ü£¬Î´ÕÒµ½¸ÃÖ°¹¤"<<endl;
-        }
-
-    }
-    system("pause");
-    system("cls");
+    
+  
     
     
 }
@@ -329,38 +269,40 @@ void WorkerManager::find_Emp()
 {
     if (this->m_FileIsEmpty)
     {
-        cout << "ÎÄ¼þ²»´æÔÚ»òÎª¿Õ" << endl;
+        cout << "FileIsEmpty" << endl;
     }
     else
     {
-        cout << "²éÕÒ·½Ê½" << endl;
-        cout << "1.°´±àºÅ²éÕÒ" << endl;
-        cout << "2.°´ÐÕÃû²éÕÒ" << endl;
+
+        cout << "1." << endl;
+        cout << "2." << endl;
+        cout << "please select your way" << endl;   
+        
         int select = 0;
         cin >> select;
         switch (select)
         {
         case 1:
             {
-                cout << "ÇëÊäÈëÒª²éÕÒµÄ±àºÅ" << endl;
+                cout << "  " << endl;
                 int id;
                 cin >> id;
                 int index = this->IsExist(id);
                 if (index != -1)
                 {
-                    cout << "±àºÅ" << this->m_EmpArray[i]->m_Id 
-                         << " ÐÕÃû" << this->m_EmpArray[i]->m_Name 
-                         << " ²¿ÃÅ±àºÅ" << this->m_EmpArray[i]->m_DeptId << endl;
+                    // cout << "ï¿½ï¿½ï¿½" << this->m_EmpArray[i]->m_Id 
+                    //      << " ï¿½ï¿½ï¿½ï¿½" << this->m_EmpArray[i]->m_Name 
+                    //      << " ï¿½ï¿½ï¿½Å±ï¿½ï¿½" << this->m_EmpArray[i]->m_DeptId << endl;
                 }
                 else
                 {
-                    cout << "Î´ÕÒµ½¸ÃÖ°¹¤" << endl;
+                    cout <<   " " << endl;
                 }
                 break;
             }
         case 2:
             {
-                cout << "ÇëÊäÈëÒª²éÕÒµÄÐÕÃû" << endl;
+                cout << "  " << endl;
                 string name;
                 cin >> name;
                 bool flag = false;
@@ -368,15 +310,15 @@ void WorkerManager::find_Emp()
                 {
                     if (this->m_EmpArray[i]->m_Name == name)
                     {
-                        cout << "±àºÅ" << this->m_EmpArray[i]->m_Id 
-                             << " ÐÕÃû" << this->m_EmpArray[i]->m_Name 
-                             << " ²¿ÃÅ±àºÅ" << this->m_EmpArray[i]->m_DeptId << endl;
+                        cout << "  " << this->m_EmpArray[i]->m_Id 
+                             << "  " << this->m_EmpArray[i]->m_Name 
+                             << "  " << this->m_EmpArray[i]->m_DeptId << endl;
                         flag = true;
                     }
                 }
                 if (!flag)
                 {
-                    cout << "Î´ÕÒµ½¸ÃÖ°¹¤" << endl;
+                    cout << "  " << endl;
                 }
                 break;
             }
